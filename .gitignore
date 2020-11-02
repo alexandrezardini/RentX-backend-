@@ -1,7 +1,28 @@
-.idea/
-.vscode/
-node_modules/
-build/
-tmp/
-temp/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+tmp/*
+!tmp/.gitkeep
+
+# testing
+/coverage
+
+# production
+/build
+/ormconfig.json
+
+# misc
+.DS_Store
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+ormconfig.json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
