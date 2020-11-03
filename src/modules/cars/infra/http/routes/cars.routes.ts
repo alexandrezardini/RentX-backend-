@@ -11,7 +11,7 @@ const carsController = new CarsController();
 profileRouter.use(ensureAuthenticated);
 
 profileRouter.post(
-  '/:user_id',
+  '/',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
