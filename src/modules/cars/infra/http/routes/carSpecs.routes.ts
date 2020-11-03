@@ -5,12 +5,12 @@ import CarSpecsController from '../controllers/CarSpecsController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
-const profileRouter = Router();
+const carSpecsRouter = Router();
 const carSpecsController = new CarSpecsController();
 
-profileRouter.use(ensureAuthenticated);
+carSpecsRouter.use(ensureAuthenticated);
 
-profileRouter.post(
+carSpecsRouter.post(
   '/:car_id',
   celebrate({
     [Segments.BODY]: {
@@ -22,4 +22,4 @@ profileRouter.post(
   carSpecsController.create,
 );
 
-export default profileRouter;
+export default carSpecsRouter;
