@@ -22,4 +22,6 @@ carsRouter.post(
   carsController.create,
 );
 
+carsRouter.get('/', carsController.index);
+
 export default carsRouter;
