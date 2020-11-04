@@ -5,6 +5,7 @@ export default interface ICarsRepository {
   findAll(): Promise<Car[] | undefined>;
   findById(id: string): Promise<Car | undefined>;
   findByName(name: string): Promise<Car | undefined>;
+  delete(car_id: string): Promise<void>;
   create(data: ICreateCarDTO): Promise<Car>;
   save(user: Car): Promise<Car>;
 }

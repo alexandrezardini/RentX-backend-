@@ -34,6 +34,8 @@ carsRouter.put(
   carsController.update,
 );
 
+carsRouter.delete('/delete/:car_id', carsController.delete);
+
 carsRouter.get('/', carsController.index);
 
 export default carsRouter;

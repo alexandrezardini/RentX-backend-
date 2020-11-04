@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import CreateCarServices from '@modules/cars/services/CreateCarServices';
 import ListAllCarsServices from '@modules/cars/services/ListAllCarsService';
 import UpdateCarService from '@modules/cars/services/UpdateCarService';
+import DeleteCarService from '@modules/cars/services/DeleteCarService';
 
 export default class CarsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -43,5 +44,16 @@ export default class CarsController {
     });
 
     return response.json(car);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { car_id } = request.params;
+    const user_id = request.user.id;
+
+    const deleteCar = container.resolve(DeleteCarService);
+
+    await deleteCar.execute(car_id, user_id);
+
+    return response.status(204).json({ message: 'Car deleted' });
   }
 }

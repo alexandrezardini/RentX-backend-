@@ -32,6 +32,10 @@ class CarsRepository implements ICarsRepository {
     return car;
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
+
   public async create(carData: ICreateCarDTO): Promise<Car> {
     const car = this.ormRepository.create(carData);
 
