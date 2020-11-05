@@ -6,6 +6,7 @@ export default interface ICarsRepository {
   findAllByIds(id: string[]): Promise<Car[] | undefined>;
   findNot(id: String): Promise<Car[] | undefined>;
   findById(id: string): Promise<Car | undefined>;
+  findByValueRange(from: number, to: number): Promise<Car[] | undefined>;
   findByName(name: string): Promise<Car | undefined>;
   delete(car_id: string): Promise<void>;
   create(data: ICreateCarDTO): Promise<Car>;

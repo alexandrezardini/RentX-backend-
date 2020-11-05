@@ -4,6 +4,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import CarsController from '../controllers/CarsController';
 import CarDayAvailabilityController from '../controllers/CarDayAvailabilityController';
 import CarNameController from '../controllers/CarNameController';
+import CarValueRangeController from '../controllers/CarValueRangeController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
@@ -11,6 +12,7 @@ const carsRouter = Router();
 const carsController = new CarsController();
 const carDayAvailabilityController = new CarDayAvailabilityController();
 const carNameController = new CarNameController();
+const carValueRangeController = new CarValueRangeController();
 
 carsRouter.use(ensureAuthenticated);
 
@@ -62,6 +64,17 @@ carsRouter.get(
     },
   }),
   carNameController.index,
+);
+
+carsRouter.get(
+  '/car-value-range',
+  celebrate({
+    [Segments.QUERY]: {
+      from: Joi.number().required(),
+      to: Joi.number().required(),
+    },
+  }),
+  carValueRangeController.index,
 );
 
 export default carsRouter;

@@ -1,4 +1,4 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import { getRepository, Repository, Not, Between } from 'typeorm';
 
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import ICreateCarDTO from '@modules/cars/dtos/ICreateCarDTO';
@@ -38,6 +38,17 @@ class CarsRepository implements ICarsRepository {
     const car = await this.ormRepository.findByIds(id);
 
     return car;
+  }
+
+  public async findByValueRange(
+    from: number,
+    to: number,
+  ): Promise<Car[] | undefined> {
+    const cars = await this.ormRepository.find({
+      where: { daily_value: Between(from, to) },
+    });
+
+    return cars;
   }
 
   public async findByName(name: string): Promise<Car | undefined> {
