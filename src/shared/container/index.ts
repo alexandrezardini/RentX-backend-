@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import '@modules/users/providers';
+import '@shared/container/providers/HashProvider';
 import './providers';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
