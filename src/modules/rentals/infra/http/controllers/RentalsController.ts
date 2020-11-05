@@ -14,10 +14,10 @@ export default class RentalsController {
     const createRental = container.resolve(CreateRentalService);
 
     const rental = await createRental.execute({
-      client_id,
-      car_id,
-      start_date,
-      end_date,
+      clientId: client_id,
+      carId: car_id,
+      startDate: start_date,
+      endDate: end_date,
     });
 
     return response.json(rental);

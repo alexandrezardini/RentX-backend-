@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { eachDayOfInterval } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 import IRentalsRepository from '../repositories/IRentalsRepository';
@@ -8,10 +9,10 @@ import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import Rental from '../infra/typeorm/entities/Rental';
 
 interface IRequest {
-  client_id: string;
-  car_id: string;
-  start_date: Date;
-  end_date: Date;
+  clientId: string;
+  carId: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 @injectable()
@@ -28,24 +29,30 @@ class CreateRentalService {
   ) {}
 
   public async execute({
-    car_id,
-    start_date,
-    end_date,
-    client_id,
+    carId,
+    startDate,
+    endDate,
+    clientId,
   }: IRequest): Promise<Rental> {
-    const car = await this.carsRepository.findById(car_id);
+    const car = await this.carsRepository.findById(carId);
 
-    const user = await this.usersRepository.findById(client_id);
+    const user = await this.usersRepository.findById(clientId);
 
     if (!car) throw new AppError('Car not found');
 
     if (!user) throw new AppError('User not found');
 
+    const daysRental = eachDayOfInterval({
+      start: startDate,
+      end: endDate,
+    });
+
     const rental = await this.rentalsRepository.create({
       car_id: car.id,
       client_id: user.id,
-      start_date,
-      end_date,
+      start_date: startDate,
+      end_date: endDate,
+      value: car.daily_value * daysRental.length,
     });
 
     return rental;
