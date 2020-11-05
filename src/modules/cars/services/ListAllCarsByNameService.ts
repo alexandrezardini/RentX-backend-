@@ -8,7 +8,10 @@ import Car from '../infra/typeorm/entities/Car';
 import CarSpec from '../infra/typeorm/entities/CarSpec';
 
 interface IResponse {
-  car: Car;
+  id: string;
+  brand: string;
+  daily_value: number;
+  name: string;
   specs: CarSpec[];
 }
 
@@ -22,12 +25,14 @@ class ListAllCarsByNameService {
     private carSpecsRepository: ICarSpecsRepository,
   ) {}
 
-  public async execute(name: string): Promise<IResponse> {
-    const car = await this.carsRepository.findByName(name);
+  public async execute(carName: string): Promise<IResponse> {
+    const car = await this.carsRepository.findByName(carName);
 
     const carSpecs = await this.carSpecsRepository.findByCarId(car.id);
 
-    const carWithSpecs = { car, specs: carSpecs };
+    const { id, brand, daily_value, name } = car;
+
+    const carWithSpecs = { id, brand, daily_value, name, specs: carSpecs };
 
     return carWithSpecs;
   }

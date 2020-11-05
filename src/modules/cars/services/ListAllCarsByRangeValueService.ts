@@ -7,6 +7,14 @@ import ICarSpecsRepository from '../repositories/ICarSpecsRepository';
 import Car from '../infra/typeorm/entities/Car';
 import CarSpec from '../infra/typeorm/entities/CarSpec';
 
+interface IResponse {
+  id: string;
+  brand: string;
+  daily_value: number;
+  name: string;
+  specs: CarSpec[];
+}
+
 @injectable()
 class ListAllCarsByRangeValueService {
   constructor(
@@ -17,7 +25,7 @@ class ListAllCarsByRangeValueService {
     private carSpecsRepository: ICarSpecsRepository,
   ) {}
 
-  public async execute(from: number, to: number): Promise<Car[]> {
+  public async execute(from: number, to: number): Promise<IResponse[]> {
     const cars = await this.carsRepository.findByValueRange(from, to);
 
     const carsWithSpecs = Promise.all(
