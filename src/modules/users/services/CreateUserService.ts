@@ -35,7 +35,7 @@ class CreateUserService {
       throw new AppError('Email address already used.');
     }
 
-    const hashedPassword = await this.hashProvider.generateHash(password);
+    const hashedPassword = await this.hashProvider.generateHash(password, 8);
 
     const defaultAvatar =
       'https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png';

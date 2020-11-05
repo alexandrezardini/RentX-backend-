@@ -28,6 +28,12 @@ class User {
   avatar: string;
 
   @Column()
+  cpf: string;
+
+  @Column()
+  phone_number: string;
+
+  @Column()
   admin: boolean;
 
   @CreateDateColumn()
