@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
 import ICarsRepository from '../repositories/ICarsRepository';
+import ICarSpecsRepository from '../repositories/ICarSpecsRepository';
 
 import Car from '../infra/typeorm/entities/Car';
 
@@ -10,12 +10,22 @@ class ListAllCarsService {
   constructor(
     @inject('CarsRepository')
     private carsRepository: ICarsRepository,
+
+    @inject('CarSpecsRepository')
+    private carSpecsRepository: ICarSpecsRepository,
   ) {}
 
   public async execute(): Promise<Car[]> {
     const cars = await this.carsRepository.findAll();
 
-    return cars;
+    const carsWithSpecs = Promise.all(
+      cars.map(async car => ({
+        ...car,
+        specs: await this.carSpecsRepository.findByCarId(car.id),
+      })),
+    );
+
+    return carsWithSpecs;
   }
 }
 

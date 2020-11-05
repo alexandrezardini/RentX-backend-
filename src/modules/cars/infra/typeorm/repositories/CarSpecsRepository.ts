@@ -12,10 +12,10 @@ class CarSpecsRepository implements ICarSpecsRepository {
     this.ormRepository = getRepository(CarSpec);
   }
 
-  public async findById(id: string): Promise<CarSpec | undefined> {
-    const car = await this.ormRepository.findOne(id);
+  public async findByCarId(id: string): Promise<CarSpec[] | undefined> {
+    const carSpecs = await this.ormRepository.find({ where: { car_id: id } });
 
-    return car;
+    return carSpecs;
   }
 
   public async findByName(name: string): Promise<CarSpec | undefined> {
