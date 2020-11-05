@@ -30,6 +30,9 @@ class Rental {
   @JoinColumn({ name: 'client_id' })
   client: User;
 
+  @Column()
+  value: Number;
+
   @Column('timestamp with time zone')
   start_date: Date;
 
