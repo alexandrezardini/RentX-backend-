@@ -2,8 +2,8 @@ import { hash, compare } from 'bcryptjs';
 import IHashProvider from '../models/IHashProvider';
 
 class BCryptHashProvider implements IHashProvider {
-  public async generateHash(payload: string): Promise<string> {
-    return hash(payload, 8);
+  public async generateHash(payload: string, bits: number): Promise<string> {
+    return hash(payload, bits);
   }
 
   public async compareHash(payload: string, hashed: string): Promise<boolean> {
