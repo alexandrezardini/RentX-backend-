@@ -18,8 +18,24 @@ class CarsRepository implements ICarsRepository {
     return cars;
   }
 
+  public async findNot(id: String): Promise<Car[] | undefined> {
+    const car = await this.ormRepository.find({
+      where: {
+        id: Not(id),
+      },
+    });
+
+    return car;
+  }
+
   public async findById(id: string): Promise<Car | undefined> {
     const car = await this.ormRepository.findOne(id);
+
+    return car;
+  }
+
+  public async findAllByIds(id: string[]): Promise<Car[] | undefined> {
+    const car = await this.ormRepository.findByIds(id);
 
     return car;
   }

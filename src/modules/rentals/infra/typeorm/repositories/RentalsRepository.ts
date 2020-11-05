@@ -2,7 +2,6 @@ import { getRepository, Repository, Not, Raw } from 'typeorm';
 
 import IRentalsRepository from '@modules/rentals/repositories/IRentalsRepository';
 import ICreateRentalDTO from '@modules/rentals/dtos/ICreateRentalDTO';
-import IFindAllInDayFromCarDTO from '@modules/rentals/dtos/IFindAllInDayFromCarDTO';
 
 import Rental from '../entities/Rental';
 
@@ -21,27 +20,29 @@ class RentalsRepository implements IRentalsRepository {
     return rental;
   }
 
-  public async findAllInDayFromProvider({
-    car_id,
-    month,
-    year,
-  }: IFindAllInDayFromCarDTO): Promise<Rental[]> {
+  public async findByDate({ day, month, year }): Promise<Rental> {
+    const parsedDay = String(day).padStart(2, '0');
     const parsedMonth = String(month).padStart(2, '0');
 
-    const rentals = await this.ormRepository.find({
+    const rental = await this.ormRepository.findOne({
       where: {
-        car_id,
         start_date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`,
+            `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
         end_date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`,
+            `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
       relations: ['car'],
     });
+
+    return rental;
+  }
+
+  public async findAll(): Promise<Rental[]> {
+    const rentals = await this.ormRepository.find({ relations: ['car'] });
 
     return rentals;
   }
