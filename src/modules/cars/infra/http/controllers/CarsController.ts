@@ -8,13 +8,20 @@ import DeleteCarService from '@modules/cars/services/DeleteCarService';
 
 export default class CarsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, brand, daily_value } = request.body;
+    const { name, brand, daily_value, gas_type, clutch } = request.body;
 
     const user_id = request.user.id;
 
     const createCar = container.resolve(CreateCarServices);
 
-    const car = await createCar.execute({ user_id, name, brand, daily_value });
+    const car = await createCar.execute({
+      user_id,
+      name,
+      brand,
+      daily_value,
+      gas_type,
+      clutch,
+    });
 
     return response.json(car);
   }

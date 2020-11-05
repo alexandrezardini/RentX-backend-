@@ -23,6 +23,8 @@ carsRouter.post(
       name: Joi.string().required(),
       brand: Joi.string().required(),
       daily_value: Joi.number().required(),
+      gas_type: Joi.string().required(),
+      clutch: Joi.string().required(),
     },
   }),
   carsController.create,
