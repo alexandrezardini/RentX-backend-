@@ -3,12 +3,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import CarsController from '../controllers/CarsController';
 import CarDayAvailabilityController from '../controllers/CarDayAvailabilityController';
+import CarNameController from '../controllers/CarNameController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const carsRouter = Router();
 const carsController = new CarsController();
 const carDayAvailabilityController = new CarDayAvailabilityController();
+const carNameController = new CarNameController();
 
 carsRouter.use(ensureAuthenticated);
 
@@ -50,6 +52,16 @@ carsRouter.get(
     },
   }),
   carDayAvailabilityController.index,
+);
+
+carsRouter.get(
+  '/car-name',
+  celebrate({
+    [Segments.QUERY]: {
+      name: Joi.string().required(),
+    },
+  }),
+  carNameController.index,
 );
 
 export default carsRouter;

@@ -6,17 +6,17 @@ import ICarsRepository from '../repositories/ICarsRepository';
 import Car from '../infra/typeorm/entities/Car';
 
 @injectable()
-class ListAllCarsService {
+class ListAllCarsByNameService {
   constructor(
     @inject('CarsRepository')
     private carsRepository: ICarsRepository,
   ) {}
 
-  public async execute(): Promise<Car[]> {
-    const cars = await this.carsRepository.findAll();
+  public async execute(name: string): Promise<Car> {
+    const car = await this.carsRepository.findByName(name);
 
-    return cars;
+    return car;
   }
 }
 
-export default ListAllCarsService;
+export default ListAllCarsByNameService;

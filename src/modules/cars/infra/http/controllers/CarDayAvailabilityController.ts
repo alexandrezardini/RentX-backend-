@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import ListCarsByDateService from '@modules/cars/services/ListCarsByDateService';
 
-export default class ProviderMonthAvailabilityController {
+export default class CarDayAvailabilityController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { month, year, day } = request.query;
 
