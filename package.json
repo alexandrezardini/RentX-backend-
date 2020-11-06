@@ -47,6 +47,7 @@
     "mime": "^2.4.6",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.11",
+    "pagarme": "^4.13.0",
     "pg": "^8.3.2",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.3.0",

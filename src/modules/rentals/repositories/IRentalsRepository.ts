@@ -6,4 +6,5 @@ export default interface IRentalsRepository {
   create(data: ICreateRentalDTO): Promise<Rental>;
   findByDate(data: IFindByDateDTO): Promise<Rental>;
   findAll(): Promise<Rental[]>;
+  findByUserId(user_id: string): Promise<Rental[]>;
 }

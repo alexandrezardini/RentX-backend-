@@ -21,6 +21,12 @@ class UserBillingsRepository implements IUserBillingsRepository {
 
     return user;
   }
+
+  public async findByUserId(user_id: string): Promise<UserBilling> {
+    const userBilling = this.ormRepository.findOne({ where: { user_id } });
+
+    return userBilling;
+  }
 }
 
 export default UserBillingsRepository;
