@@ -10,6 +10,8 @@ import carSpecsRouter from '@modules/cars/infra/http/routes/carSpecs.routes';
 
 import rentalsRouter from '@modules/rentals/infra/http/routes/rentals.routes';
 
+import paymentsRouter from '@modules/payments/infra/http/routes/payment.routes';
+
 const routes = Router();
 
 routes.use('/users', usersRouter);
@@ -19,5 +21,6 @@ routes.use('/profile', profileRouter);
 routes.use('/cars', carsRouter);
 routes.use('/car_specs', carSpecsRouter);
 routes.use('/rentals', rentalsRouter);
+routes.use('/payments', paymentsRouter);
 
 export default routes;

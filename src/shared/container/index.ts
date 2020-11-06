@@ -18,6 +18,12 @@ import CarSpecsRepository from '@modules/cars/infra/typeorm/repositories/CarSpec
 import IRentalsRepository from '@modules/rentals/repositories/IRentalsRepository';
 import RentalsRepository from '@modules/rentals/infra/typeorm/repositories/RentalsRepository';
 
+import ITransactionsRepository from '@modules/payments/repositories/ITransactionsRepository';
+import TransactionsRepository from '@modules/payments/infra/typeorm/repositories/TransactionsRepository';
+
+import IUserBillingsRepository from '@modules/users/repositories/IUserBillingsRepository';
+import UserBillingsRepository from '@modules/users/infra/typeorm/repositories/UserBillingsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -26,6 +32,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository,
+);
+
+container.registerSingleton<IUserBillingsRepository>(
+  'UserBillingsRepository',
+  UserBillingsRepository,
 );
 
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
@@ -38,4 +49,9 @@ container.registerSingleton<ICarSpecsRepository>(
 container.registerSingleton<IRentalsRepository>(
   'RentalsRepository',
   RentalsRepository,
+);
+
+container.registerSingleton<ITransactionsRepository>(
+  'TransactionsRepository',
+  TransactionsRepository,
 );

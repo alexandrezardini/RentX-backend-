@@ -5,12 +5,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
+import UserBillingsController from '../controllers/UserBillingsController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
+const userBillingsController = new UserBillingsController();
 
 const upload = multer(uploadConfig.multer);
 
@@ -27,11 +29,29 @@ usersRouter.post(
   usersController.create,
 );
 
+usersRouter.use(ensureAuthenticated);
+
 usersRouter.patch(
   '/avatar',
-  ensureAuthenticated,
   upload.single('avatar'),
   userAvatarController.update,
+);
+
+usersRouter.post(
+  '/billings',
+  celebrate({
+    [Segments.BODY]: {
+      state: Joi.string().required(),
+      city: Joi.string().required(),
+      neighborhood: Joi.string().required(),
+      street: Joi.string().required(),
+      street_number: Joi.string().required(),
+      zipcode: Joi.string().required(),
+      cpf: Joi.string().required(),
+      phone_number: Joi.string().required(),
+    },
+  }),
+  userBillingsController.create,
 );
 
 export default usersRouter;
